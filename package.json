@@ -1,0 +1,16 @@
+{
+  "name": "tunnel",
+  "module": "src/server.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/tunnel": "^0.0.7"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "tunnel": "^0.0.6"
+  }
+}
