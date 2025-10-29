@@ -1,8 +1,12 @@
 {
-  "name": "tunnel",
-  "module": "src/server.ts",
+  "name": "@pssbletrngle/tunnel",
   "type": "module",
   "private": true,
+  "workspaces": [
+    "contract",
+    "server",
+    "client"
+  ],
   "devDependencies": {
     "@types/bun": "latest",
     "@types/tunnel": "^0.0.7"

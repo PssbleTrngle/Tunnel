@@ -1,0 +1,15 @@
+{
+  "name": "@pssbletrngle/tunnel-server",
+  "module": "src/server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@pssbletrngle/tunnel-contract": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

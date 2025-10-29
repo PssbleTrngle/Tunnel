@@ -1,0 +1,28 @@
+{
+  "name": "@pssbletrngle/tunnel-client",
+  "module": "src/cli/main.ts",
+  "type": "module",
+  "exports": {
+    ".": "./src/client.ts"
+  },
+  "bin": {
+    "tunnel": "./src/cli/main.ts"
+  },
+  "scripts": {
+    "dev": "bun run --watch src/cli/main.ts --host localhost:8080",
+    "cli": "bun run src/cli/main.ts",
+    "prepare": "bun run script/schema.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "args": "^5.0.3",
+    "nanoid": "^5.1.6",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@pssbletrngle/tunnel-contract": "workspace:*",
+    "@types/args": "^5.0.4"
+  }
+}
