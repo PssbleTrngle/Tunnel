@@ -14,6 +14,7 @@ export type Tunnel = {
   ): Promise<WithoutState<ProxiedResponse>>;
   handle(response: ProxiedResponse): void;
   close(): void;
+  is(socket: ServerWebSocket<SessionData>): void;
 };
 
 type Consumer = (response: WithoutState<ProxiedResponse>) => void;
@@ -41,6 +42,10 @@ export function createTunnel(socket: ServerWebSocket<SessionData>): Tunnel {
       const consumer = consumers.get(state);
       console.log("consumer got lost for request", state);
       consumer?.(response);
+    },
+
+    is(other) {
+      return socket === other;
     },
   };
 }

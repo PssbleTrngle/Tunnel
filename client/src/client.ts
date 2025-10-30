@@ -31,6 +31,11 @@ export const connect = executeWithRetries(
 
     const socket = new WebSocket(url, { headers });
 
+    socket.addEventListener("ping", () => {
+      context.reset();
+      console.info("connected successfully");
+    });
+
     socket.addEventListener("message", async (event) => {
       const { state, ...data }: RequestOptions = JSON.parse(event.data);
       console.info(
@@ -40,18 +45,13 @@ export const connect = executeWithRetries(
       socket.send(JSON.stringify({ ...response, state }));
     });
 
-    socket.addEventListener("open", () => {
-      context.reset();
-      console.info("connected successfully");
-    });
-
-    return new Promise<void>((_, reject) => {
-      socket.addEventListener("close", (event) => {
-        const message =
-          messages[event.code as SocketCode] ??
-          `[${event.code}]: ${event.reason}`;
+    return new Promise<void>((resolve, reject) => {
+      socket.addEventListener("close", ({ code, reason }) => {
+        const message = messages[code as SocketCode] ?? `[${code}]: ${reason}`;
         console.warn("connection closed:", message);
-        reject(new Error(event.reason));
+
+        if (code === SocketCode.OTHER_CLIENT_CONNECTED) resolve();
+        else reject(new Error(reason));
       });
 
       socket.addEventListener("error", () => {

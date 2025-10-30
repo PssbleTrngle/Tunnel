@@ -13,8 +13,6 @@ export async function registerTunnel(
   socket: ServerWebSocket<SessionData>,
   replace: boolean = false
 ) {
-  console.info("registering tunnel");
-
   if (instance) {
     if (replace) {
       instance.close();
@@ -23,14 +21,18 @@ export async function registerTunnel(
         SocketCode.ALREADY_CONNECTED,
         "another client is already connected"
       );
+
+      return;
     }
   }
 
   instance = createTunnel(socket);
+  socket.ping();
   console.info("websocket connected");
 }
 
-export function closeTunnel() {
-  instance?.close();
-  instance = null;
+export function closeTunnel(socket: ServerWebSocket<SessionData>) {
+  if (instance?.is(socket)) {
+    instance = null;
+  }
 }

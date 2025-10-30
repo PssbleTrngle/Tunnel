@@ -24,9 +24,9 @@ const server = Bun.serve<SessionData>({
         await registerTunnel(socket, false);
       }
     },
-    close(_socket, _code, message) {
-      console.log("connected disconnected:", message);
-      closeTunnel();
+    close(socket, code) {
+      if (code < 4000) console.log("client disconnected");
+      closeTunnel(socket);
     },
   },
   async fetch(req, server) {

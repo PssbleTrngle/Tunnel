@@ -10,5 +10,5 @@ services:
 
   app:
     image: crccheck/hello-world
-    container_name: tunneled_app
+    container_name: tunneled-app
     ports: ["8888:8000"]
