@@ -9,6 +9,8 @@ jobs:
    fetch:
       runs-on: ubuntu-latest
       steps:
+         - uses: actions/checkout@v4
+
          - name: Get Latest Tag
            uses: actions-ecosystem/action-get-latest-tag@v1
            id: get
