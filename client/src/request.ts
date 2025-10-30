@@ -2,7 +2,7 @@ import type {
   ProxiedResponse,
   RequestOptions,
   WithoutState,
-} from "@pssbletrngle/tunnel-contract";
+} from "@possible_triangle/tunnel-contract";
 
 export default async function request({
   port,

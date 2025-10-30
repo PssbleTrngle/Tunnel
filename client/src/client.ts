@@ -1,4 +1,4 @@
-import type { RequestOptions } from "@pssbletrngle/tunnel-contract";
+import type { RequestOptions } from "@possible_triangle/tunnel-contract";
 import type { Options } from "./cli/options";
 import request from "./request";
 import executeWithRetries, { type RetryContext } from "./retry";

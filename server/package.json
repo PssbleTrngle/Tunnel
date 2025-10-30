@@ -1,5 +1,5 @@
 {
-  "name": "@pssbletrngle/tunnel-server",
+  "name": "@possible_triangle/tunnel-server",
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@pssbletrngle/tunnel-contract": "workspace:*"
+    "@possible_triangle/tunnel-contract": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5"

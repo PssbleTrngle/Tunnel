@@ -1,13 +1,22 @@
 {
-  "name": "@pssbletrngle/tunnel-client",
+  "name": "@possible_triangle/tunnel-client",
   "module": "src/cli/main.ts",
   "type": "module",
+  "keywords": [
+    "tunnel",
+    "client",
+    "proxy",
+    "cli"
+  ],
   "exports": {
     ".": "./src/client.ts"
   },
   "bin": {
     "tunnel": "./dist/main.js"
   },
+  "files": [
+    "dist/**/*.js"
+  ],
   "scripts": {
     "dev": "bun run --watch src/cli/main.ts --host localhost:8080",
     "cli": "bun run src/cli/main.ts",
@@ -23,14 +32,13 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@pssbletrngle/tunnel-contract": "workspace:*",
-    "@types/args": "^5.0.4"
+    "@possible_triangle/tunnel-contract": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PssbleTrngle/Tunnel.git"
+    "url": "https://github.com/possible_triangle/Tunnel.git"
   }
 }

@@ -2,7 +2,7 @@ import type {
   ProxiedResponse,
   RequestOptions,
   WithoutState,
-} from "@pssbletrngle/tunnel-contract";
+} from "@possible_triangle/tunnel-contract";
 import type { ServerWebSocket } from "bun";
 import { nanoid } from "nanoid";
 

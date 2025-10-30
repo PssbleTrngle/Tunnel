@@ -15,24 +15,23 @@
       },
     },
     "client": {
-      "name": "@pssbletrngle/tunnel-client",
+      "name": "@possible_triangle/tunnel-client",
       "bin": {
-        "tunnel": "./src/cli/main.ts",
+        "tunnel": "./dist/main.js",
       },
       "dependencies": {
         "args": "^5.0.3",
         "zod": "^4.1.12",
       },
       "devDependencies": {
-        "@pssbletrngle/tunnel-contract": "workspace:*",
-        "@types/args": "^5.0.4",
+        "@possible_triangle/tunnel-contract": "workspace:*",
       },
       "peerDependencies": {
         "typescript": "^5",
       },
     },
     "contract": {
-      "name": "@pssbletrngle/tunnel-contract",
+      "name": "@possible_triangle/tunnel-contract",
       "devDependencies": {
         "@types/bun": "latest",
       },
@@ -41,12 +40,12 @@
       },
     },
     "server": {
-      "name": "@pssbletrngle/tunnel-server",
+      "name": "@possible_triangle/tunnel-server",
       "dependencies": {
         "nanoid": "^5.1.6",
       },
       "devDependencies": {
-        "@pssbletrngle/tunnel-contract": "workspace:*",
+        "@possible_triangle/tunnel-contract": "workspace:*",
         "@types/bun": "latest",
       },
       "peerDependencies": {
@@ -55,13 +54,11 @@
     },
   },
   "packages": {
-    "@pssbletrngle/tunnel-client": ["@pssbletrngle/tunnel-client@workspace:client"],
+    "@possible_triangle/tunnel-client": ["@possible_triangle/tunnel-client@workspace:client"],
 
-    "@pssbletrngle/tunnel-contract": ["@pssbletrngle/tunnel-contract@workspace:contract"],
+    "@possible_triangle/tunnel-contract": ["@possible_triangle/tunnel-contract@workspace:contract"],
 
-    "@pssbletrngle/tunnel-server": ["@pssbletrngle/tunnel-server@workspace:server"],
-
-    "@types/args": ["@types/args@5.0.4", "", {}, "sha512-TGJkOiKE2Veo++SYqV9JYV61KuqQ3lhdeYJ9jDozBYeAG78lwaEg6jcvvZ08JzjlDJFe0VBHJ0MxISATT6GJYQ=="],
+    "@possible_triangle/tunnel-server": ["@possible_triangle/tunnel-server@workspace:server"],
 
     "@types/bun": ["@types/bun@1.3.1", "", { "dependencies": { "bun-types": "1.3.1" } }, "sha512-4jNMk2/K9YJtfqwoAa28c8wK+T7nvJFOjxI4h/7sORWcypRNxBpr+TPNaCfVWq70tLCJsqoFwcf0oI0JU/fvMQ=="],
 

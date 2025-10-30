@@ -21,6 +21,9 @@ jobs:
    cli:
       needs: [build-version]
       runs-on: ubuntu-latest
+      permissions:
+         id-token: write
+         contents: read
       steps:
          - uses: actions/checkout@v4
 
@@ -42,7 +45,5 @@ jobs:
            working-directory: client
            run: bun run prepare:publish ${{ needs.build-version.outputs.tag }}
 
-         - run: bun publish --provenance --production
+         - run: npm publish --provenance --production
            working-directory: client
-           env:
-              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

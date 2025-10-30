@@ -1,4 +1,4 @@
-import type { ProxiedResponse } from "@pssbletrngle/tunnel-contract";
+import type { ProxiedResponse } from "@possible_triangle/tunnel-contract";
 import { closeTunnel, getTunnel, registerTunnel } from "./manager";
 
 class ServerError extends Error {
