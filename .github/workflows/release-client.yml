@@ -6,7 +6,6 @@ on:
       branches: [main]
       paths:
          - client/**
-         - contract/**
 
 env:
    CI: true
@@ -42,7 +41,7 @@ jobs:
            working-directory: client
            run: bun run build
 
-         - run: bun publish --provenance --access public
+         - run: bun publish --provenance --production
            working-directory: client
            env:
               NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

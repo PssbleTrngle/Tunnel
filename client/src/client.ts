@@ -11,16 +11,16 @@ export const connect = executeWithRetries(
     const socket = new WebSocket(`ws://${host}/tunnel`);
 
     socket.addEventListener("message", async (event) => {
-      const data: RequestOptions = JSON.parse(event.data);
+      const { state, ...data }: RequestOptions = JSON.parse(event.data);
       console.info(
         data.method,
         "request ",
-        data.state,
+        state,
         " received for",
         data.pathname
       );
       const response = await request({ ...data, port });
-      socket.send(JSON.stringify(response));
+      socket.send(JSON.stringify({ ...response, state }));
     });
 
     socket.addEventListener("open", (event) => {

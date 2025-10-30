@@ -1,11 +1,10 @@
 import type {
   ProxiedResponse,
   RequestOptions,
+  WithoutState,
 } from "@pssbletrngle/tunnel-contract";
 import type { ServerWebSocket } from "bun";
 import { nanoid } from "nanoid";
-
-type WithoutState<T> = Omit<T, "state">;
 
 export type Tunnel = {
   forward(

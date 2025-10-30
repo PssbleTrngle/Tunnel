@@ -1,4 +1,6 @@
-type Headers = Record<string, string>;
+export type Headers = Record<string, string>;
+
+export type WithoutState<T> = Omit<T, "state">;
 
 export type RequestOptions = {
   state: string;

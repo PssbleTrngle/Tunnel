@@ -1,6 +1,7 @@
 import type {
   ProxiedResponse,
   RequestOptions,
+  WithoutState,
 } from "@pssbletrngle/tunnel-contract";
 
 export default async function request({
@@ -9,8 +10,7 @@ export default async function request({
   headers,
   method,
   body,
-  state,
-}: RequestOptions & { port: number }) {
+}: WithoutState<RequestOptions> & { port: number }) {
   const url = new URL(pathname, `http://localhost:${port}`);
   const response = await fetch(url, { body, method, headers });
 
@@ -18,6 +18,5 @@ export default async function request({
     headers: response.headers.toJSON(),
     status: response.status,
     body: await response.text(),
-    state,
-  } satisfies ProxiedResponse;
+  } satisfies WithoutState<ProxiedResponse>;
 }
