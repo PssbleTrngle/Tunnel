@@ -30,10 +30,8 @@ jobs:
 
          - uses: actions/setup-node@v4
            with:
+              node-version: "25"
               registry-url: "https://registry.npmjs.org"
-
-         - name: Update npm
-           run: npm install -g npm@latest
 
          - name: Setup Bun
            uses: oven-sh/setup-bun@v2
@@ -49,5 +47,5 @@ jobs:
            working-directory: client
            run: bun run prepare:publish ${{ needs.build-version.outputs.tag }}
 
-         - run: npm publish --provenance --production
+         - run: npm publish --provenance --omit dev
            working-directory: client
