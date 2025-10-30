@@ -10,7 +10,7 @@ COPY package.json bun.lock .
 COPY server/package.json ./server/
 COPY contract/package.json ./contract/
 COPY client/package.json ./client/
-RUN bun install --frozen-lockfile --production --filter ./server --linked hoisted
+RUN bun install --frozen-lockfile --production --filter ./server --linker hoisted
 
 # copy production dependencies and source code into final image
 FROM base AS release
