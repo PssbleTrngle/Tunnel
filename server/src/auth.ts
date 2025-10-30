@@ -9,7 +9,7 @@ export async function createSession(req: Request): Promise<SessionData> {
   const header = req.headers.get("Authorization");
   if (!header) return {};
 
-  const [type, key] = header;
+  const [type, key] = header.split(" ");
   if (!type || !key) throw new ServerError("invalid authorization", 401);
 
   if (type.toLowerCase() === "secret") {

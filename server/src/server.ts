@@ -56,6 +56,10 @@ const server = Bun.serve<SessionData>({
     });
   },
   error(error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.error(error);
+    }
+
     const status = error instanceof ServerError ? error.status : 500;
     return Response.json({ message: error.message }, { status });
   },

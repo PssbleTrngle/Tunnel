@@ -7,12 +7,12 @@ args
   .option("config", "path to the config file")
   .option("port", "which port to forward too")
   .option("host", "which host to forward too")
-  .option("target", "host of the tunnel server");
+  .option("target", "url of the tunnel server");
 
 const configOptions = z.object({
   port: z.number().optional().describe("which port to forward too"),
   host: z.string().optional().describe("which host to forward too"),
-  target: z.string().optional().describe("host of the tunnel server"),
+  target: z.string().optional().describe("url of the tunnel server"),
 });
 
 const cliOptions = configOptions.and(
