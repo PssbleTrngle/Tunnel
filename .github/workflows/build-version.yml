@@ -15,7 +15,7 @@ jobs:
            uses: actions-ecosystem/action-get-latest-tag@v1
            id: get
            with:
-              semver_only: true
+              with_initial_version: false
 
          - name: Fail if missing
            if: ${{ steps.get.outputs.tag == '' }}
