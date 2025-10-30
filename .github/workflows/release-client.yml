@@ -37,11 +37,10 @@ jobs:
            uses: oven-sh/setup-bun@v2
 
          - name: Install Dependencies
-           run: bun install --frozen-lockfile --production --filter ./client
+           run: bun install --frozen-lockfile --filter ./client
 
          - name: Create bundle
-           working-directory: client
-           run: bun run build
+           run: bun run --filter ./client build
 
          - name: Create bundle
            working-directory: client

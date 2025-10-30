@@ -22,7 +22,7 @@ export const connect = executeWithRetries(
   ) => {
     const verb = context.attempt > 1 ? "reconnecting" : "connecting";
     const url = new URL(target);
-    url.protocol = url.protocol === "https" ? "wss" : "ws";
+    url.protocol = url.protocol === "https:" ? "wss" : "ws";
     console.info(`${verb} to ${url} ...`);
 
     const headers: Headers = {};
