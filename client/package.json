@@ -6,11 +6,12 @@
     ".": "./src/client.ts"
   },
   "bin": {
-    "tunnel": "./src/cli/main.ts"
+    "tunnel": "./dist/main.js"
   },
   "scripts": {
     "dev": "bun run --watch src/cli/main.ts --host localhost:8080",
     "cli": "bun run src/cli/main.ts",
+    "build": "bun build src/cli/main.ts --outdir ./dist --target node",
     "prepare": "bun run script/schema.ts"
   },
   "peerDependencies": {
@@ -18,11 +19,14 @@
   },
   "dependencies": {
     "args": "^5.0.3",
-    "nanoid": "^5.1.6",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@pssbletrngle/tunnel-contract": "workspace:*",
     "@types/args": "^5.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PssbleTrngle/Tunnel.git"
   }
 }

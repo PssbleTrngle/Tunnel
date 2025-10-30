@@ -1,4 +1,5 @@
 import args from "args";
+import { existsSync, readFileSync } from "node:fs";
 import z from "zod";
 
 args
@@ -29,11 +30,11 @@ export function configSchema() {
 }
 
 async function readConfig(
-  path: string
+  file: string
 ): Promise<z.infer<typeof configOptions>> {
-  const file = Bun.file(path);
-  if (await file.exists()) {
-    return cliOptions.parse(await file.json());
+  if (existsSync(file)) {
+    const json = JSON.parse(readFileSync(file).toString());
+    return cliOptions.parse(json);
   } else {
     return {};
   }

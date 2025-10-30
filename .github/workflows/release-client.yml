@@ -39,3 +39,12 @@ jobs:
 
          - name: Install Dependencies
            run: bun install --frozen-lockfile --production --filter ./client
+
+         - name: Create bundle
+           working-directory: client
+           run: bun run build
+
+         - run: bun publish --provenance --access public
+           working-directory: client
+           env:
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

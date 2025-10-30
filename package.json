@@ -16,5 +16,6 @@
   },
   "dependencies": {
     "tunnel": "^0.0.6"
-  }
+  },
+  "packageManager": "bun@1.2.17"
 }
