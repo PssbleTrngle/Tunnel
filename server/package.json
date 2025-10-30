@@ -3,7 +3,8 @@
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun run --watch src/server.ts"
+    "dev": "bun run --watch src/server.ts",
+    "build": "bun build src/server.ts --outdir ./dist --target bun --sourcemap=linked"
   },
   "dependencies": {
     "nanoid": "^5.1.6"

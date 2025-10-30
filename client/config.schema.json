@@ -3,9 +3,15 @@
   "type": "object",
   "properties": {
     "port": {
+      "description": "which port to forward too",
       "type": "number"
     },
     "host": {
+      "description": "which host to forward too",
+      "type": "string"
+    },
+    "target": {
+      "description": "host of the tunnel server",
       "type": "string"
     }
   },

@@ -10,8 +10,9 @@ export default async function request({
   headers,
   method,
   body,
-}: WithoutState<RequestOptions> & { port: number }) {
-  const url = new URL(pathname, `http://localhost:${port}`);
+  host,
+}: WithoutState<RequestOptions> & { port: number; host: string }) {
+  const url = new URL(pathname, `http://${host}:${port}`);
   const response = await fetch(url, { body, method, headers });
 
   return {

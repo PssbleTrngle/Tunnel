@@ -1,0 +1,9 @@
+name: tunnel-server
+
+services:
+  tunnel:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    container_name: tunnel-server
+    ports: ["8080:8080"]

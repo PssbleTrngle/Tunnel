@@ -1,4 +1,6 @@
+import { SocketCode } from "@possible_triangle/tunnel-contract";
 import type { ServerWebSocket } from "bun";
+import type { SessionData } from "./auth";
 import { createTunnel, type Tunnel } from "./tunnel";
 
 let instance: Tunnel | null = null;
@@ -8,7 +10,7 @@ export async function getTunnel() {
 }
 
 export async function registerTunnel(
-  socket: ServerWebSocket,
+  socket: ServerWebSocket<SessionData>,
   replace: boolean = false
 ) {
   console.info("registering tunnel");
@@ -17,7 +19,10 @@ export async function registerTunnel(
     if (replace) {
       instance.close();
     } else {
-      socket.close(1015, "another client is already connected");
+      socket.close(
+        SocketCode.ALREADY_CONNECTED,
+        "another client is already connected"
+      );
     }
   }
 

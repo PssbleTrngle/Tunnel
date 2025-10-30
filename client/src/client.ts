@@ -1,14 +1,24 @@
-import type { RequestOptions } from "@possible_triangle/tunnel-contract";
+import type {
+  Headers,
+  RequestOptions,
+} from "@possible_triangle/tunnel-contract";
 import type { Options } from "./cli/options";
 import request from "./request";
 import executeWithRetries, { type RetryContext } from "./retry";
 
 export const connect = executeWithRetries(
-  ({ host, port }: Options, context: RetryContext) => {
+  (
+    { target, secret, host, port, userAgent }: Options & { userAgent?: string },
+    context: RetryContext
+  ) => {
     const verb = context.attempt > 1 ? "reconnecting" : "connecting";
-    console.info(`${verb} to ${host}...`);
+    console.info(`${verb} to ${target}...`);
 
-    const socket = new WebSocket(`ws://${host}/tunnel`);
+    const headers: Headers = {};
+    if (secret) headers["Authorization"] = `Secret ${secret}`;
+    if (userAgent) headers["User-Agent"] = userAgent;
+
+    const socket = new WebSocket(`ws://${target}/tunnel`, { headers });
 
     socket.addEventListener("message", async (event) => {
       const { state, ...data }: RequestOptions = JSON.parse(event.data);
@@ -19,7 +29,7 @@ export const connect = executeWithRetries(
         " received for",
         data.pathname
       );
-      const response = await request({ ...data, port });
+      const response = await request({ ...data, port, host });
       socket.send(JSON.stringify({ ...response, state }));
     });
 

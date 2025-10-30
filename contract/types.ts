@@ -16,3 +16,10 @@ export type ProxiedResponse = {
   body: string;
   status: number;
 };
+
+export const enum SocketCode {
+  ALREADY_CONNECTED = 4001,
+  OTHER_CLIENT_CONNECTED = 4002,
+  MISSING_SECRET = 4003,
+  INVALID_SECRET = 4004,
+}

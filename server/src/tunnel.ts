@@ -1,10 +1,12 @@
-import type {
-  ProxiedResponse,
-  RequestOptions,
-  WithoutState,
+import {
+  SocketCode,
+  type ProxiedResponse,
+  type RequestOptions,
+  type WithoutState,
 } from "@possible_triangle/tunnel-contract";
 import type { ServerWebSocket } from "bun";
 import { nanoid } from "nanoid";
+import type { SessionData } from "./auth";
 
 export type Tunnel = {
   forward(
@@ -16,7 +18,7 @@ export type Tunnel = {
 
 type Consumer = (response: WithoutState<ProxiedResponse>) => void;
 
-export function createTunnel(socket: ServerWebSocket): Tunnel {
+export function createTunnel(socket: ServerWebSocket<SessionData>): Tunnel {
   const consumers = new Map<string, Consumer>();
 
   return {
@@ -30,7 +32,10 @@ export function createTunnel(socket: ServerWebSocket): Tunnel {
       });
     },
     close() {
-      socket.close(1014, "another client has connected");
+      socket.close(
+        SocketCode.OTHER_CLIENT_CONNECTED,
+        "another client has connected"
+      );
     },
     handle({ state, ...response }) {
       const consumer = consumers.get(state);

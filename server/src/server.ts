@@ -1,14 +1,11 @@
 import type { ProxiedResponse } from "@possible_triangle/tunnel-contract";
+import { createSession, validateSession, type SessionData } from "./auth";
+import config from "./config";
+import { ServerError } from "./error";
 import { closeTunnel, getTunnel, registerTunnel } from "./manager";
 
-class ServerError extends Error {
-  constructor(message: string, public readonly status: number) {
-    super(message);
-  }
-}
-
-const server = Bun.serve({
-  port: 8080,
+const server = Bun.serve<SessionData>({
+  port: config.port,
   websocket: {
     async message(_, message) {
       const data: ProxiedResponse = JSON.parse(message.toString());
@@ -23,7 +20,9 @@ const server = Bun.serve({
       tunnel?.handle(data);
     },
     async open(socket) {
-      await registerTunnel(socket, false);
+      if (await validateSession(socket)) {
+        await registerTunnel(socket, false);
+      }
     },
     close(_socket, _code, message) {
       console.log("connected disconnected:", message);
@@ -31,7 +30,12 @@ const server = Bun.serve({
     },
   },
   async fetch(req, server) {
-    if (server.upgrade(req)) return;
+    if (
+      server.upgrade(req, {
+        data: await createSession(req),
+      })
+    )
+      return;
 
     const tunnel = await getTunnel();
     if (!tunnel) throw new ServerError("no tunnel registered yet", 404);
@@ -57,4 +61,5 @@ const server = Bun.serve({
   },
 });
 
-console.log(`listening on ${server.url}`);
+console.info(`listening on ${server.url}`);
+if (config.secret) console.info("using secret key");

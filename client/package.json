@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "bun run --watch src/cli/main.ts --host localhost:8080",
     "cli": "bun run src/cli/main.ts",
-    "build": "bun build src/cli/main.ts --outdir ./dist --target node",
+    "build": "bun build src/cli/main.ts --outdir ./dist --target node --sourcemap=linked",
     "gen:config": "bun run script/schema.ts",
     "prepare:publish": "bun run script/publish.ts"
   },
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "args": "^5.0.3",
+    "dotenv": "^17.2.3",
     "zod": "^4.1.12"
   },
   "devDependencies": {
