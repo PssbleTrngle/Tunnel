@@ -27,19 +27,16 @@ jobs:
          - name: Setup Bun
            uses: oven-sh/setup-bun@v2
 
-         - name: Set package.json version
-           uses: jossef/action-set-json-field@v2.2
-           with:
-              file: client/package.json
-              field: version
-              value: ${{ needs.build-version.outputs.tag }}
-
          - name: Install Dependencies
            run: bun install --frozen-lockfile --production --filter ./client
 
          - name: Create bundle
            working-directory: client
            run: bun run build
+
+         - name: Create bundle
+           working-directory: client
+           run: bun run prepare:publish ${{ needs.build-version.outputs.tag }}
 
          - run: bun publish --provenance --production
            working-directory: client

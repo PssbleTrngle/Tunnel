@@ -12,7 +12,8 @@
     "dev": "bun run --watch src/cli/main.ts --host localhost:8080",
     "cli": "bun run src/cli/main.ts",
     "build": "bun build src/cli/main.ts --outdir ./dist --target node",
-    "prepare": "bun run script/schema.ts"
+    "gen:config": "bun run script/schema.ts",
+    "prepare:publish": "bun run script/publish.ts"
   },
   "peerDependencies": {
     "typescript": "^5"
