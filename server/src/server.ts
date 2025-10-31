@@ -40,12 +40,13 @@ const server = Bun.serve<SessionData>({
     const tunnel = await getTunnel();
     if (!tunnel) throw new ServerError("no tunnel registered yet", 404);
 
-    const { pathname } = new URL(req.url);
+    const { pathname, search } = new URL(req.url);
     console.info(`Forwarding ${req.method} ${pathname}`);
 
     const response = await tunnel.forward({
       headers: req.headers.toJSON(),
       pathname,
+      search,
       method: req.method,
       body: await req.body?.text(),
     });

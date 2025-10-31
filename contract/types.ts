@@ -7,6 +7,7 @@ export type RequestOptions = {
   pathname: string;
   headers: Headers;
   method: string;
+  search?: string;
   body?: string;
 };
 
