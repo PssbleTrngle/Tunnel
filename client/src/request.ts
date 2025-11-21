@@ -5,10 +5,12 @@ import type {
   WithoutState,
 } from "@possible_triangle/tunnel-contract";
 
-function adaptHeaders(headers: Headers, host: string) {
+function adaptHeaders(headers: Headers, url: URL) {
+  const { host, origin } = url;
   return {
     ...headers,
     host,
+    origin,
   };
 }
 
@@ -21,12 +23,13 @@ export default async function request({
   body,
   host,
 }: WithoutState<RequestOptions> & { port: number; host: string }) {
-  const url = new URL(pathname + search, `http://${host}:${port}`);
+  const origin = `${host}:${port}`;
+  const url = new URL(pathname + search, `http://${origin}`);
 
   const response = await fetch(url, {
     body,
     method,
-    headers: adaptHeaders(headers, host),
+    headers: adaptHeaders(headers, url),
     redirect: "manual",
   });
 
