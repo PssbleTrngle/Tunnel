@@ -1,35 +1,33 @@
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+WORKDIR /usr/src/
 
-FROM base AS install
-WORKDIR /temp/prod/
+FROM base AS turbo
+RUN bun --global add turbo@^2
 
-# install with --production
-COPY package.json bun.lock .
-COPY server/package.json ./server/
-COPY contract/package.json ./contract/
-COPY client/package.json ./client/
+FROM turbo AS prepare
 
-RUN bun install --frozen-lockfile --filter ./server --linker hoisted
-
-FROM base AS builder
-
-COPY --from=install /temp/prod/node_modules node_modules
 COPY . .
-RUN bun run --filter ./server build
 
-# copy production dependencies and source code into final image
+RUN turbo prune @possible_triangle/tunnel-server --docker
+
+FROM turbo AS builder
+
+COPY --from=prepare /usr/src/out/bun.lock .
+COPY --from=prepare /usr/src/out/json/ .
+RUN bun install --frozen-lockfile --production
+
+COPY --from=prepare /usr/src/out/full/ .
+RUN bun run build
+
 FROM base AS release
 
 ENV NODE_ENV=production
 
-#COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=builder /usr/src/app/server/dist .
-COPY package.json .
+COPY --from=builder /usr/src/server/dist ./app
 
 # run the app
 USER bun
 EXPOSE 8080/tcp
-ENTRYPOINT [ "bun", "run", "server.js" ]
+ENTRYPOINT [ "bun", "run", "app/server.js" ]
