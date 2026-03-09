@@ -6,7 +6,7 @@
     "contract",
     "server",
     "client",
-    "test"
+    "test*"
   ],
   "scripts": {
     "dev": "turbo run dev"
