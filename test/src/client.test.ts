@@ -5,7 +5,7 @@ it("tunnels simple request", async () => {
 
   const data = await response.json();
 
-  expect(data).not.toBeNull();
+  expect(data).toMatchSnapshot();
 });
 
 it("tunnels sse events", async () => {
@@ -20,5 +20,5 @@ it("tunnels sse events", async () => {
     events.push(text);
   }
 
-  expect(events).toHaveLength(5);
+  expect(events).toMatchSnapshot();
 });

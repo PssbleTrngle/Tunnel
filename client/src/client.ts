@@ -18,7 +18,7 @@ const messages: Record<SocketCode, string> = {
 export const connect = executeWithRetries(
   (
     { target, secret, host, port, userAgent }: Options & { userAgent?: string },
-    context: RetryContext
+    context: RetryContext,
   ) => {
     const verb = context.attempt > 1 ? "reconnecting" : "connecting";
     const url = new URL(target);
@@ -39,10 +39,11 @@ export const connect = executeWithRetries(
     socket.addEventListener("message", async (event) => {
       const { state, ...data }: RequestOptions = JSON.parse(event.data);
       console.info(
-        `${data.method} request '${state}' received for ${data.pathname}`
+        `${data.method} request '${state}' received for ${data.pathname}`,
       );
-      const response = await request({ ...data, port, host });
-      socket.send(JSON.stringify({ ...response, state }));
+      await request({ ...data, port, host }, (response) => {
+        socket.send(JSON.stringify({ ...response, state }));
+      });
     });
 
     return new Promise<void>((resolve, reject) => {
@@ -58,5 +59,5 @@ export const connect = executeWithRetries(
         reject(new Error(`socket enountered error`));
       });
     });
-  }
+  },
 );

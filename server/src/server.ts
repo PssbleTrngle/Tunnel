@@ -9,12 +9,7 @@ const server = Bun.serve<SessionData>({
   websocket: {
     async message(_, message) {
       const data: ProxiedResponse = JSON.parse(message.toString());
-      console.log(
-        "received response for",
-        data.state,
-        "with status",
-        data.status
-      );
+      console.log("received response for", data.state, "with type", data.type);
 
       const tunnel = await getTunnel();
       tunnel?.handle(data);
@@ -43,17 +38,12 @@ const server = Bun.serve<SessionData>({
     const { pathname, search } = new URL(req.url);
     console.info(`Forwarding ${req.method} ${pathname}`);
 
-    const response = await tunnel.forward({
+    return tunnel.forward({
       headers: req.headers.toJSON(),
       pathname,
       search,
       method: req.method,
       body: await req.body?.text(),
-    });
-
-    return new Response(response.body, {
-      headers: response.headers,
-      status: response.status,
     });
   },
   error(error) {

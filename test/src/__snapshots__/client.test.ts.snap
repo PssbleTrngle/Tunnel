@@ -1,0 +1,37 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`tunnels simple request 1`] = `
+{
+  "data": "something",
+}
+`;
+
+exports[`tunnels sse events 1`] = `
+[
+  
+"data: connected at 1773069600221
+
+"
+,
+  
+"data: connected at 1773069600346
+
+"
+,
+  
+"data: connected at 1773069600457
+
+"
+,
+  
+"data: connected at 1773069600564
+
+"
+,
+  
+"data: connected at 1773069600691
+
+"
+,
+]
+`;

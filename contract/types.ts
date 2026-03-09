@@ -1,6 +1,10 @@
 export type Headers = Record<string, string>;
 
-export type WithoutState<T> = Omit<T, "state">;
+type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? Omit<T, K>
+  : never;
+
+export type WithoutState<T> = DistributiveOmit<T, "state">;
 
 export type RequestOptions = {
   state: string;
@@ -11,11 +15,23 @@ export type RequestOptions = {
   body?: string;
 };
 
-export type ProxiedResponse = {
-  state: string;
+export type HeaderResponse = {
+  type: "headers";
   headers: Headers;
-  body: string;
   status: number;
+};
+
+export type DataResponse = {
+  type: "data";
+  data: string;
+};
+
+export type DoneResponse = {
+  type: "done";
+};
+
+export type ProxiedResponse = (HeaderResponse | DataResponse | DoneResponse) & {
+  state: string;
 };
 
 export const enum SocketCode {
