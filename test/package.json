@@ -1,0 +1,13 @@
+{
+  "name": "@possible_triangle/tunnel-tests",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

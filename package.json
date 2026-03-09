@@ -5,11 +5,16 @@
   "workspaces": [
     "contract",
     "server",
-    "client"
+    "client",
+    "test"
   ],
+  "scripts": {
+    "dev": "turbo run dev"
+  },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/tunnel": "^0.0.7"
+    "@types/tunnel": "^0.0.7",
+    "turbo": "^2.8.14"
   },
   "peerDependencies": {
     "typescript": "^5"
